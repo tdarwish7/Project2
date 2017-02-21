@@ -8,5 +8,9 @@ server.get('/', function(request, response){
   response.sendFile('/public/html/index.html', {root:__dirname});
 });
 
+server.get('/gallery', function(request, response){
+  response.sendFile('/public/html/gallery.html', {root:__dirname});
+});
+
 
 server.listen(port);
