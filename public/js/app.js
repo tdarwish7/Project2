@@ -1,29 +1,39 @@
 window.onload = function () {
-  //instatiate a new object of XMLRequest
+
+  //instantiate a new XML object
   var http = new XMLHttpRequest();
-  //store the url of the poke api into a variable
-  var pokemonUrl = 'http://pokeapi.co/api/v2/pokedex/2/';
+  //store the url as a string in a variable
+  var url = 'http://pokeapi.co/api/v2/pokemon-habitat/1/';
 
-
-  http.onreadystatechange = function() {
-    if( http.readyState == 4 && http.status == 200 ) {
-       var pokeData = JSON.parse( http.response );
-       console.log(pokeData);
-       var pokeObj = pokeData["pokemon_entries"];
-       var pokemonNames = new Array();
-
-       for(var i = 0; i < pokeObj.length; i+=1) {
-
-         pokemon = pokeObj[i]["pokemon_species"]["name"];
-         document.getElementById('pokemon1').innerHTML += pokemon + "<hr>";
-       };
-    };
-  };
-
-  //call the method open to request the data and pass the type of http request, the address, and the boolean value for asynchrounous requests.
-  http.open('GET', pokemonUrl, true);
-  //send the data back
+  //use method .open() to request the data and pass it the type of http request, the destination, and a boolean value for asynchronous runtime.
+  http.open('GET', url, true);
   http.send();
 
-  console.log(http);
+  http.onreadystatechange = function () {
+    if( http.readyState == 4 && http.status == 200 ) {
+
+      var data = JSON.parse( http.response );
+      var pokemon = data["pokemon_species"];
+
+      for(var i = 0; i < pokemon.length; i +=1) {
+        console.log(pokemon[i]["name"]);
+      }
+    }
+  };
+
+
+  // console.log("This is an AJAX request ", http);
+
+
+  /*
+    READY STATES
+
+    0 - request is not initialized
+    1 - request has been set up
+    2 - request has been sent
+    3 - request is in progress
+    4 - request is complete
+
+  */
+
 };
